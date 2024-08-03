@@ -1,0 +1,108 @@
+[
+    {
+      "key": 1,
+      "name": "Estatico",
+      "hasMenu": false,
+      "option": "/static",
+      "inputRequired": true
+    },
+    {
+      "key": 2,
+      "name": "Variable",
+      "hasMenu": true,
+      "subOptions": [
+        {
+          "key": 21,
+          "name": "Primer Ajuste",
+          "hasMenu": false,
+          "option": "/variable/first-fit",
+          "inputRequired": false
+        },
+        {
+          "key": 22,
+          "name": "Peor Ajuste",
+          "hasMenu": false,
+          "option": "/variable/worst-fit",
+          "inputRequired": false
+        },
+        {
+          "key": 23,
+          "name": "Mejor Ajuste",
+          "hasMenu": false,
+          "option": "/variable/best-fit",
+          "inputRequired": false
+        }
+      ]
+    },
+    {
+      "key": 3,
+      "name": "Dinamico Sin Compactacion",
+      "hasMenu": true,
+      "subOptions": [
+        {
+          "key": 21,
+          "name": "Primer Ajuste",
+          "hasMenu": false,
+          "option": "/dynamic-no-compaction/first-fit",
+          "inputRequired": false
+        },
+        {
+          "key": 22,
+          "name": "Peor Ajuste",
+          "hasMenu": false,
+          "option": "/dynamic-no-compaction/worst-fit",
+          "inputRequired": false
+        },
+        {
+          "key": 23,
+          "name": "Mejor Ajuste",
+          "hasMenu": false,
+          "option": "/dynamic-no-compaction/best-fit",
+          "inputRequired": false
+        }
+      ]
+    },
+    {
+      "key": 4,
+      "name": "Dinamico Con Compactacion",
+      "hasMenu": false,
+      "option": "/dynamic-compaction",
+      "inputRequired": false
+    },
+    {
+      "key": 5,
+      "name": "Segmentación",
+      "hasMenu": true,
+      "subOptions": [
+        {
+          "key": 21,
+          "name": "Primer Ajuste",
+          "hasMenu": false,
+          "option": "/segmentation/first-fit",
+          "inputRequired": true
+        },
+        {
+          "key": 22,
+          "name": "Peor Ajuste",
+          "hasMenu": false,
+          "option": "/segmentation/worst-fit",
+          "inputRequired": true
+        },
+        {
+          "key": 23,
+          "name": "Mejor Ajuste",
+          "hasMenu": false,
+          "option": "/segmentation/best-fit",
+          "inputRequired": true
+        }
+      ]
+    },
+    {
+      "key": 6,
+      "name": "Paginación",
+      "hasMenu": false,
+      "option": "/paging",
+      "inputRequired": true
+    }
+  ]
+  

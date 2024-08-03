@@ -1,0 +1,8 @@
+.process_container.empty{
+    flex-grow: 1;
+    background-color: #0F4C75;
+    border: 1PX solid #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

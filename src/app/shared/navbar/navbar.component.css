@@ -1,0 +1,35 @@
+.navbar{
+    left: 260px;
+    width: calc(100% - 260px);
+    background:#11101d;
+    position: fixed;
+    color: #fff;
+    padding: 15px 20px;
+    font-size: 25px;
+    transition: all 0.5s ease;
+    z-index: 1000;
+    display: flex;
+}
+
+.navbar p,.navbar a{
+    cursor: pointer;
+    padding: 5px;
+}
+
+.navbar p:hover,.navbar a:hover{
+    background-color: #1B262C;
+}
+
+.navbar.sidebar_close{
+    left: 0;
+    width: 100%;
+}
+
+.navbar .p {
+    margin: 0;
+}
+  
+.p-a {
+    margin-left: auto;
+}
+

@@ -1,0 +1,15 @@
+<div class="table_container">
+    <h2>{{currentName | cleanAndCapitalize}}</h2>
+    <ng-container *ngIf="Partitions.length === 0; else fixedPartitions">
+        <h3>Partition description table</h3>
+        <table-no-empty-process [Processes]="noEmptyProcesses" [partitions]="Partitions"></table-no-empty-process>
+
+        <h3>Free fragments table</h3>
+        <table-empty-process [Processes]="emptyProcesses"></table-empty-process>
+    </ng-container>
+
+    <ng-template #fixedPartitions>
+        <h3>Partition description table</h3>
+        <table-no-empty-process [Processes]="Processes" [partitions]="Partitions"></table-no-empty-process>
+    </ng-template>
+</div>

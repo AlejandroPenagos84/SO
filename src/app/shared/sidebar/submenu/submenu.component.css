@@ -1,0 +1,17 @@
+.sub-item p{
+    padding: 16px;
+    display: inline-block;
+    width: 80%;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-left: 20px;
+    color: #fff;
+}
+
+.sub-item p:hover{
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-items{
+    list-style: none;
+}

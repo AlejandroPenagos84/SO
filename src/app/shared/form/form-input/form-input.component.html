@@ -1,0 +1,11 @@
+<div class="form-container">
+    <p>Ingresa el {{inputInfo}}</p>
+    <form (ngSubmit)="emitParition()">
+        <div class="input-container">
+            <input type="number" [(ngModel)]="partitionSize" name="sizePartition" placeholder="{{inputInfo}}"/>
+        </div>
+        <div class="button_container">
+            <button>Ingresar</button>
+        </div>
+    </form>
+</div>

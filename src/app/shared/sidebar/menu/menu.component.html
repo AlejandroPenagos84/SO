@@ -1,0 +1,8 @@
+<ul class="menu-items">
+    <li *ngFor="let item of items" class="item" (click)="setAction(item)">
+        <p routerLink="/">{{item.name}}</p>
+        <ul *ngIf="subItems !== undefined&& item.name === currentName">
+            <sidebar-submenu [subItems]="subItems"></sidebar-submenu>
+        </ul>
+    </li>
+</ul>

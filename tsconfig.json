@@ -22,7 +22,15 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "baseUrl": "src",
+    "paths": {
+      "@app/*": ["app/*"],
+      "@interfaces/*": ["app/MemoryManagmentLogic/interfaces/*"],
+      "@memory-logic/*": ["app/MemoryManagmentLogic/*"],
+      "@item-interface/*": ["app/shared/sidebar/interfaces/*"]
+    },
+    "resolveJsonModule": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,0 +1,14 @@
+<table>
+    <thead>
+        <tr>
+            <td>Base</td>
+            <td>Size</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let process of Processes; let index = index" [ngClass]="{'even': index % 2 === 0, 'odd': index % 2 !== 0}">
+            <td>{{process.base}}</td>
+            <td>{{process.memory}}</td>
+        </tr>
+    </tbody>
+</table>

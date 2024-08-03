@@ -1,0 +1,24 @@
+.container{
+    left: 260px;
+    width: calc(100% - 260px);
+    position: relative;
+    justify-content: flex-start; /* Distribuye el espacio entre elementos */
+    align-items: stretch; /* Ajusta los hijos para que ocupen toda la altura */
+    height: 100vh;
+    transition: all 0.5s ease;
+    z-index: 900;
+    display: flex;
+    flex-direction: row; /* Los hijos se apilan en fila */
+}
+
+.container.sidebar_close{
+    left: 0;
+    width: 100%;
+}
+
+
+form-program,form-input, memory-programs,memory-table,memory-graphics{
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 0;
+}

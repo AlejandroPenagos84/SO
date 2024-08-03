@@ -1,0 +1,31 @@
+<div class="memory_container">
+  <div class="memory">
+    <p>Para eliminar haz click sobre el proceso para eliminarlo</p>
+    <ng-container *ngFor="let process of Processes; let index = index">
+      <ng-container *ngIf="process.id !== '0'; else NoEmptyProcess">
+        <graphics-empty-process
+          [tamDiv]="getSinglePartition(index) - process.memory"
+        ></graphics-empty-process>
+
+        <div
+          class="process_container"
+          [ngStyle]="{ 'height.px': (process.memory / 1048576) * 43 }"
+          [ngClass]="{ full: process.id !== 'id' }"
+          (click)="removeProcess(process.id)"
+        >
+          <p class="p_base">{{ process.base }} - {{process.base.toString(16)}}</p>
+          <p class="p_name">{{ process.name }}</p>
+        </div>
+      </ng-container>
+
+      <ng-template #NoEmptyProcess>
+        <graphics-empty-process
+          [tamDiv]="process.memory"
+        ></graphics-empty-process>
+      </ng-template>
+
+    </ng-container>
+
+    <div class="process_container SO">SO</div>
+  </div>
+</div>

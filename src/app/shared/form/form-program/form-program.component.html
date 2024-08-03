@@ -1,0 +1,24 @@
+<div class="form-container">
+    <h2>Ingresar un nuevo programa</h2>
+    <form (ngSubmit)="emitProgram()">
+        <div class="input-container">
+            <label name="name">Nombre</label>
+            <input type="text" [(ngModel)]="program.name" name="nameProgram" placeholder="name"/>
+        </div>
+        <div class="input-container">
+            <label name="bss">bss</label>
+            <input type="number" [(ngModel)]="program.bss" name="bss" placeholder="bss"/>
+        </div>
+        <div class="input-container">
+            <label name="txt">data</label>
+            <input type="number" [(ngModel)]="program.data" name="data" placeholder="data"/>
+        </div>
+        <div class="input-container">
+            <label name="txt">txt</label>
+            <input type="number" [(ngModel)]="program.txt" name="txt" placeholder="txt"/>
+        </div>
+        <div class="button_container">
+            <button>Agregar</button>
+        </div>
+    </form>
+</div>
