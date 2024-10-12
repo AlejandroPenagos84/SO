@@ -120,7 +120,7 @@ export class FacadeMemory{
     private setPagingStrategy(offset: number):void{
         const[memory, numberPagingArray] = paging_memory(offset);
         this.memoryDiscontiguousManagement.setInitialMemory(memory);
-        this.memoryDiscontiguousManagement.setTotalMemory(15728640);
+        this.memoryDiscontiguousManagement.setTotalMemory(16777216);
         this.memoryDiscontiguousManagement.setStrategies(new Paging(numberPagingArray));
         this.memoryDiscontiguousManagement.setOffset(offset);
         this.memoryDiscontiguousManagement.setNumberPagingArray(numberPagingArray);

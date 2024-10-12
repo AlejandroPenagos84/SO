@@ -76,6 +76,10 @@ export class Paging implements ProcessDiscontiguousStrategy {
         }
       }
       added = true;
+      console.log(memory)
+      console.log(this.partitions)
+      
+      console.log(newTotalMemory);
     }
     return { memory, added, newTotalMemory };
   }
@@ -99,7 +103,7 @@ export class Paging implements ProcessDiscontiguousStrategy {
         page_deleted.key
       );
       removed = true;
-      newTotalMemory += page_deleted.memory;
+      newTotalMemory += page_deleted.memory + (this.partitions[page_index]-page_deleted.memory);
       page_index = memory.findIndex((segment) => segment.id === idUnitMemory);
     }
     return { memory, removed, newTotalMemory };
