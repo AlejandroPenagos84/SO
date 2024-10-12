@@ -22,21 +22,30 @@ export class Segmentation implements ProcessDiscontiguousStrategy {
     let added: boolean = false;
     let newTotalMemory: number = totalMemory;
     let new_process: Process = create_process(newProgram, memory_process, 0, name);
+    let deleteBugSegments: boolean = false;
+    let auxArray: string[] = []
 
-    if (newTotalMemory >= memory_process) {
-      const segments: UnitMemory[][] = splitProcess(new_process, offset);
-      
-      for (let i: number = 0; i < segments.length; i++) {
-        for (let j: number = 0; j < segments[i].length; j++) {
-          const index: number = this.fit(memory, segments[i][j].memory);
-          segments[i][j].base = memory[index].base;
-          memory[index].base += segments[i][j].memory;
-          memory[index].memory -= segments[i][j].memory;
-          memory = [...memory.slice(0, index), segments[i][j], ...memory.slice(index)];
-          newTotalMemory -= segments[i][j].memory;
+    const segments: UnitMemory[][] = splitProcess(new_process, offset);
+
+    for (let i: number = 0; i < segments.length; i++) {
+      for (let j: number = 0; j < segments[i].length; j++) {
+        const index: number = this.fit(memory, segments[i][j].memory);
+        if(index==-1){
+          deleteBugSegments = true;
+          break;
         }
+        segments[i][j].base = memory[index].base;
+        memory[index].base += segments[i][j].memory;
+        memory[index].memory -= segments[i][j].memory;
+        memory = [...memory.slice(0, index), segments[i][j], ...memory.slice(index)];
+        newTotalMemory -= segments[i][j].memory;
+        auxArray.push(segments[i][j].id);
       }
       added = true;
+    }
+    if(deleteBugSegments){
+      this.removeProcess(auxArray[0],memory,newTotalMemory);
+      added = false;
     }
     return { memory, added, newTotalMemory};
   }
