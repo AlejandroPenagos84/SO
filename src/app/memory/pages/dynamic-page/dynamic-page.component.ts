@@ -20,6 +20,7 @@ export class DynamicPageComponent {
         this.currentName = event[0].path;
         this.memoryService.chooseStrategy(event[0].path,this.partitionSize);
         this.memoryService.setInitialContigousMemory();
+        this.memoryService.allowSelect = true;
       });
   }
 }

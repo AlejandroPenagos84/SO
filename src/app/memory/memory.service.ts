@@ -17,7 +17,8 @@ export class MemoryService {
   memoryDiscontigous = signal<UnitMemory[]>([]);
   programs = signal<Program[]>(info);
   isContigous: boolean = true;
-
+  allowSelect: boolean = false;
+  
   constructor() {}
 
   chooseStrategy(currentTypePartition: string, sizePartition: number): void {

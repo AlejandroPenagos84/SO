@@ -24,6 +24,7 @@ export class PagingPageComponent {
         this.currentName = event[0].path;
         this.memoryService.chooseStrategy(event[0].path,partitionSize);
         this.memoryService.setInitialDiscontigousMemory();
+        this.memoryService.allowSelect = true;
       });
   }
 }

@@ -26,6 +26,7 @@ export class FixedPageComponent {
         this.currentName = event[0].path;
         this.memoryService.chooseStrategy(event[0].path,this.partitionSize);
         this.memoryService.setInitialContigousMemory();
+        this.memoryService.allowSelect = true;
       });
     }
   }
@@ -40,6 +41,7 @@ export class FixedPageComponent {
         this.currentName = event[0].path;
         this.memoryService.chooseStrategy(event[0].path,partitionSize);
         this.memoryService.setInitialContigousMemory();
+        this.memoryService.allowSelect = true;
       });
   }
 }

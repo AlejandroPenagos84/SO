@@ -23,12 +23,10 @@ export class FixedGraphicsComponent {
 
 
   getSinglePartition(process: Process, index: number): number{
-    if(process.id !== '0'){
-      console.log(this.Partitions)
+    if(process.id !== '0')
       return this.Partitions.length > 0 ? this.Partitions[index]*1048576 - process.memory : 0;
-    }else{
+    else
       return 0;
-    }
   }
   
   onHover(segmentId: string) {

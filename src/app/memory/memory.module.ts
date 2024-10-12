@@ -8,7 +8,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { SegmentationTableComponent } from './components/table/segmentation-table/segmentation-table.component';
 import { FixedPageComponent } from './pages/fixed-page/fixed-page.component';
 import { DynamicPageComponent } from './pages/dynamic-page/dynamic-page.component';
-import { CompactionPageComponent } from './pages/compaction-page/compaction-page.component';
 import { SegmentationPageComponent } from './pages/segmentation-page/segmentation-page.component';
 import { PagingPageComponent } from './pages/paging-page/paging-page.component';
 import { PagingTableComponent } from './components/table/paging-table/paging-table.component';
@@ -26,7 +25,7 @@ import { SegmentationGraphicsComponent } from './components/graphics/segmentatio
 import { FreeFragmentsContigousComponent } from './components/table/free-fragments-contigous/free-fragments-contigous.component';
 import { PagingGraphicsComponent } from './components/graphics/paging-graphics/paging-graphics.component';
 @NgModule({
-  declarations: [ProgramsComponent, NumberOnlyPipe, CleanAndCapitalizePipe, SegmentationTableComponent, FixedPageComponent, DynamicPageComponent , CompactionPageComponent, SegmentationPageComponent, PagingPageComponent, FixedTableComponent, DynamicTableComponent , CompactionTableComponent, FreeFragmentsDiscontigousComponent, FixedGraphicsComponent, DynamicGraphicsComponent, AppMemoryComponent,SegmentationGraphicsComponent, FreeFragmentsContigousComponent,PagingTableComponent, PagingGraphicsComponent],
+  declarations: [ProgramsComponent, NumberOnlyPipe, CleanAndCapitalizePipe, SegmentationTableComponent, FixedPageComponent, DynamicPageComponent , SegmentationPageComponent, PagingPageComponent, FixedTableComponent, DynamicTableComponent , CompactionTableComponent, FreeFragmentsDiscontigousComponent, FixedGraphicsComponent, DynamicGraphicsComponent, AppMemoryComponent,SegmentationGraphicsComponent, FreeFragmentsContigousComponent,PagingTableComponent, PagingGraphicsComponent],
   imports: [
     CommonModule,
     MatTooltipModule,

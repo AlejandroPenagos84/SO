@@ -27,13 +27,16 @@ export class Paging implements ProcessDiscontiguousStrategy {
     totalMemory: number,
     offset: number
   ): { memory: UnitMemory[]; added: boolean; newTotalMemory: number } {
+
     const { name, bss, data, txt } = newProgram;
     const memory_process: number =
       newProgram.name === 'SO'
         ? bss + data + txt
         : bss + data + txt + HEAP + STACK;
     let added: boolean = false;
+
     let newTotalMemory: number = totalMemory;
+
     const new_process: Process = create_process(
       newProgram,
       memory_process,
@@ -44,7 +47,7 @@ export class Paging implements ProcessDiscontiguousStrategy {
     // Verificar si hay suficiente memoria antes de buscar un índice
     if (newTotalMemory >= memory_process) {
       let pages: UnitMemory[][] = splitProcess(new_process, offset);
-
+      
       if (newProgram.id === 'SO')
         pages = pages
           .filter(
@@ -62,19 +65,18 @@ export class Paging implements ProcessDiscontiguousStrategy {
               return page; // Retorna el objeto sin cambios
             })
           );
-
+        
       for (let i: number = 0; i < pages.length; i++) {
         for (let j: number = 0; j < pages[i].length; j++) {
           const index: number = first_fit(memory, pages[i][j].memory);
           pages[i][j].frame = index;
           pages[i][j].base = memory[index].base; // Ajusta la base del segmento
           memory[index] = pages[i][j]; // Asigna el segmento a la memoria
-          newTotalMemory -= pages[i][j].memory; // Decrementa la memoria total disponible
+          newTotalMemory -= pages[i][j].memory + (this.partitions[index]-pages[i][j].memory); // Decrementa la memoria total disponible
         }
       }
       added = true;
     }
-    console.log(memory);
     return { memory, added, newTotalMemory };
   }
 
