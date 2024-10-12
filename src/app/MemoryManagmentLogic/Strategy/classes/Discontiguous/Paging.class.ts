@@ -76,10 +76,6 @@ export class Paging implements ProcessDiscontiguousStrategy {
         }
       }
       added = true;
-      console.log(memory)
-      console.log(this.partitions)
-      
-      console.log(newTotalMemory);
     }
     return { memory, added, newTotalMemory };
   }
