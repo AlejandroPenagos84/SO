@@ -7,6 +7,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FormInputComponent } from './form/form-input/form-input.component';
 import { FormsModule } from '@angular/forms';
 import { FormProgramComponent } from './form/form-program/form-program.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -15,6 +17,7 @@ import { FormProgramComponent } from './form/form-program/form-program.component
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule
   ],
   exports:[SidebarComponent, NavbarComponent, FormInputComponent, FormProgramComponent]
 

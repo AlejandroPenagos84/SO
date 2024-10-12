@@ -1,3 +1,4 @@
+import { UnitMemory } from '@app/MemoryManagmentLogic/interfaces/UnitMemory.interface';
 import { Process } from '@interfaces/Process.interface';
 import { Program } from "@interfaces/Program.interface";
 import { getRandomInt } from "@memory-logic/Strategy/util/util_functions";
@@ -45,3 +46,36 @@ export const create_empty_process = (
     base: base,
   };
 };
+
+
+export const create_unit_memory = (
+  id: string,
+  memory_unit_memory: number,
+  base: number,
+  name: string,
+  permits: string
+): UnitMemory =>{
+  return {
+    id: id,
+    key: getRandomInt(100000),
+    name: name,
+    base: base,
+    memory: memory_unit_memory,
+    permits: permits
+  };
+}
+
+export const create_empty_unit_memory = (
+  base: number,
+  memory: number,
+  key: number
+): UnitMemory => {
+  return{
+    id: '0',
+    key: key,
+    name: '0',
+    base: base,
+    memory: memory,
+    permits: ''
+  }
+}

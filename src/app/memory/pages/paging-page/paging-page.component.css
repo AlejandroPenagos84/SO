@@ -1,0 +1,14 @@
+.paging_page{
+    display: flex;
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+::ng-deep paging-table,::ng-deep form-input,::ng-deep paging-graphics{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

@@ -1,0 +1,9 @@
+<div class="fixed_page">
+    <form-input *ngIf="inputRequired else NoRequired" (partitionSizeChange)="handlePartitionSizeChange($event)"></form-input>
+    <ng-template #NoRequired>
+        <fixed-table 
+        [currentName]="currentName"></fixed-table>
+        <fixed-graphics></fixed-graphics>
+    </ng-template>
+</div>
+

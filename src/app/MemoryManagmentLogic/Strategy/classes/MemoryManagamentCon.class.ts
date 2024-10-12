@@ -11,12 +11,13 @@ export class MemoryManagamentContiguous {
   private processStrategy!: ProcessContiguousStrategy;
   private memory!: Process[];
   private totalMemory: number;
+  private _fixedPatitions: number[] = [];
 
   constructor() {
     this.totalMemory = 15728640;
   }
 
-  public setInitialMemory(memory: Process[]){
+  public setInitialMemory(memory: Process[]): void{
     this.memory = memory;
   }
 
@@ -40,7 +41,7 @@ export class MemoryManagamentContiguous {
     this.processStrategy = processStrategy;
   }
 
-  public addProgram(newProgram: Program): void
+  public addProgram(newProgram: Program): boolean
   {
     const result : 
     {
@@ -50,9 +51,11 @@ export class MemoryManagamentContiguous {
     } = this.processStrategy.addProcess(newProgram, this.memory, this.totalMemory);
       this.memory = result.memory;
       this.totalMemory = result.newTotalMemory;
+
+      return result.added;
   }
 
-  public removeProcess(idProcess: string): void 
+  public removeProcess(idProcess: string): boolean
   {
     const result: {    
       memory: Process[],
@@ -61,5 +64,15 @@ export class MemoryManagamentContiguous {
     } = this.processStrategy.removeProcess(idProcess,this.memory, this.totalMemory);
       this.memory = result.memory;
       this.totalMemory = result.newTotalMemory;
+
+      return result.removed;
+  }
+
+  public setCurrextFixedPartitions(newPartitions:number[]):void{
+    this._fixedPatitions = newPartitions;
+  }
+
+  public getCurrentFixedPartitions(){
+    return this._fixedPatitions;
   }
 }

@@ -1,5 +1,5 @@
 <ul class="menu-items">
     <li *ngFor="let subItem of subItems" class="sub-item" (click)="setAction(subItem)">
-        <p routerLink="/">{{subItem.name}}</p>
+        <p [routerLink]="[subItem.option]">{{subItem.name}}</p>
     </li>
 </ul>

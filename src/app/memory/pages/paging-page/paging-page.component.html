@@ -1,0 +1,9 @@
+<div class="paging_page">
+    <form-input *ngIf="inputRequired else NoRequired" (partitionSizeChange)="handlePartitionSizeChange($event)"></form-input>
+    <ng-template #NoRequired>
+        <paging-table
+        [currentName]="currentName"></paging-table>
+        <paging-graphics></paging-graphics>
+    </ng-template>
+</div>
+

@@ -1,0 +1,27 @@
+<div class="table_container">
+    <h2>{{currentName | cleanAndCapitalize}}</h2>
+    <table>
+        <thead>
+            <tr>
+                <td rowspan="2">PID</td>
+                <td rowspan="2">Size</td>
+                <td colspan="2">Base</td>
+            </tr>
+            <tr>
+                <td>Decimal</td>
+                <td>Hexadecimal</td>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let process of Processes; let index = index">
+                <tr *ngIf="process.id !== '0'" [ngClass]="{'even': index % 2 === 0, 'odd': index % 2 !== 0}">
+                    <td>{{ process.id | numberOnly }}</td>
+                    <td>{{ process.memory }}</td>
+                    <td>{{ process.base }}</td>
+                    <td>{{ process.base.toString(16) }}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+    <free-fragments-contigous [elements]="freeFragmentTable"></free-fragments-contigous>
+</div>

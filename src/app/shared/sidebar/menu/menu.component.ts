@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Item } from '@item-interface/Item.interface';
-import { MemoryService } from '@app/memory/memory.service';
 import { NavbarService } from '@app/shared/navbar/navbar.service';
 
 
@@ -16,18 +15,13 @@ export class MenuComponent {
   currentName: string | null = null;
   subItems: Item[] | undefined = [];
 
-  constructor(private memoryService: MemoryService, private navbarService: NavbarService){}
+  constructor(private navbarService: NavbarService){}
 
   // Si tiene subItems, los muestra, si no, guarda el nombre para saber 
   setAction(item: Item){
     this.set_subItems(item.name);
     if(item.option) {
-      this.memoryService.setTypePartition(item.option);
-      this.memoryService.setInputRequired(item.inputRequired!);
-      this.memoryService.setCurrentName(item.name);
       this.navbarService.set_showSideBar(!this.navbarService.state);
-      if(this.memoryService.addNewProgram)
-        this.memoryService.setAddNewProgram(!this.memoryService.addNewProgram);
     }; 
   }
 

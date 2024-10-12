@@ -1,169 +1,89 @@
 import { Injectable } from '@angular/core';
-import { MemoryManagamentContiguous } from '@memory-logic/Strategy/classes/MemoryManagamentCon.class';
-
-import { Program } from '@memory-logic/interfaces/Program.interface';
-import { Process } from '@interfaces/Process.interface';
-
-import { FixedPartitioning } from '@memory-logic/Strategy/classes/Contiguous/Fixed.class';
-import { NoCompaction } from '@memory-logic/Strategy/classes/Contiguous/NoCompaction.class';
-import { Compaction } from '@memory-logic/Strategy/classes/Contiguous/Compaction.class';
-
-import { first_fit, worst_fit } from '@memory-logic/Strategy/common/common_functions';
-import { dynamic_no_compaction, static_memory, variable_memory } from '@memory-logic/Strategy/common/memory_array';
-
-import info from "./programas.json"
+import { signal } from '@angular/core'; // Importa signal desde Angular
+import { FacadeMemory } from '@app/MemoryManagmentLogic/FacadeMemory';
+import { Process } from '@app/MemoryManagmentLogic/interfaces/Process.interface';
+import { Program } from '@app/MemoryManagmentLogic/interfaces/Program.interface';
+import { UnitMemory } from '@app/MemoryManagmentLogic/interfaces/UnitMemory.interface';
+import info from './programas.json';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MemoryService {
-  constructor() { }
-  
-  private _memoryContiguousManagament= new MemoryManagamentContiguous();
-  private _currentTypePartition: string = '';
-  private _inputRequired: boolean = false;
-  private _currentPrograms: Program[] = info;
-  private _currentFixedPartitions: number[] = [];
-  private _currentName: string = '';
-  private _currentSizePartition: number= 0;
-  private _addNewProgram: boolean = true;
+  private facadeMemory = new FacadeMemory();
 
-  chooseStrategy(): void{
-    switch (this._currentTypePartition) {
-      case '/static':
-        if(this._currentSizePartition !== 0){
-          const data_static: [Process[], number[]] = static_memory(this._currentSizePartition);
-          this._currentFixedPartitions = data_static[1];
-          this._memoryContiguousManagament.setTotalMemory();
-          this._memoryContiguousManagament.setInitialMemory(data_static[0]);
-          this._memoryContiguousManagament.setStrategies(new FixedPartitioning(first_fit,data_static[1]));
-        }
+  // Declara signals para memoryContigous y memoryDiscontigous
+  memoryContigous = signal<Process[]>([]);
+  memoryDiscontigous = signal<UnitMemory[]>([]);
+  programs = signal<Program[]>(info);
+  isContigous: boolean = true;
 
-        break;
-      case '/variable/first-fit':
-        const data_variable_ff: [Process[], number[]] = variable_memory();
-        this._currentFixedPartitions = data_variable_ff[1];
-        this._memoryContiguousManagament.setTotalMemory();
-        this._memoryContiguousManagament.setInitialMemory(data_variable_ff[0]);
-        this._memoryContiguousManagament.setStrategies(new FixedPartitioning(first_fit,data_variable_ff[1]));
+  constructor() {}
 
-        break;
-      case '/variable/worst-fit':
-        const data_variable_wf: [Process[], number[]] = variable_memory();
-        this._currentFixedPartitions = data_variable_wf[1];
-        this._memoryContiguousManagament.setTotalMemory();
-        this._memoryContiguousManagament.setInitialMemory(data_variable_wf[0]);
-        this._memoryContiguousManagament.setStrategies(new FixedPartitioning(worst_fit,data_variable_wf[1]));
-
-        break;
-      case '/variable/best-fit':
-        const data_variable_bf: [Process[], number[]] = variable_memory();
-        this._currentFixedPartitions = data_variable_bf[1];
-        this._memoryContiguousManagament.setTotalMemory();
-        this._memoryContiguousManagament.setInitialMemory(data_variable_bf[0]);
-        this._memoryContiguousManagament.setStrategies(new FixedPartitioning(worst_fit,data_variable_bf[1]));
-
-        break;
-      case '/dynamic-no-compaction/first-fit':
-        const data_dynamic_ff: Process[] = dynamic_no_compaction();
-        this._currentFixedPartitions = [];
-        this._memoryContiguousManagament.setTotalMemory();
-        this._memoryContiguousManagament.setInitialMemory(data_dynamic_ff);
-        this._memoryContiguousManagament.setStrategies(new NoCompaction(first_fit));
-
-        break;
-      case '/dynamic-no-compaction/worst-fit':
-        const data_dynamic_wf: Process[] = dynamic_no_compaction();
-        this._currentFixedPartitions = [];
-        this._memoryContiguousManagament.setTotalMemory();
-        this._memoryContiguousManagament.setInitialMemory(data_dynamic_wf);
-        this._memoryContiguousManagament.setStrategies(new NoCompaction(worst_fit));
-
-        break;
-      case '/dynamic-no-compaction/best-fit':
-        const data_dynamic_bf: Process[] = dynamic_no_compaction();
-        this._currentFixedPartitions = [];
-        this._memoryContiguousManagament.setTotalMemory();
-        this._memoryContiguousManagament.setInitialMemory(data_dynamic_bf);
-        this._memoryContiguousManagament.setStrategies(new NoCompaction(first_fit));
-
-        break;
-
-      case '/dynamic-compaction':
-        this._memoryContiguousManagament.setInitialMemory(dynamic_no_compaction());
-        this._currentFixedPartitions = [];
-        this._memoryContiguousManagament.setTotalMemory();
-        this._memoryContiguousManagament.setStrategies(new Compaction());
-        break;
-
-      default:
-        break;
-    }
+  chooseStrategy(currentTypePartition: string, sizePartition: number): void {
+    this.memoryContigous.set([]);
+    this.memoryDiscontigous.set([]);
+    this.facadeMemory.configure(currentTypePartition, sizePartition);
   }
 
+  addProcessContiguous(newProgram: Program): boolean {
+    const added: boolean =
+      this.facadeMemory.addProcessContigousMemory(newProgram);
 
-  setTypePartition(newTypePartition: string){
-    this._currentTypePartition = newTypePartition;
-    this.chooseStrategy();
+    // Actualiza el signal con la nueva memoria contigua
+    this.memoryContigous.set([...this.facadeMemory.getContigousMemory()]);
+
+    return added;
   }
 
-  setCurrentName(newName:string){
-    this._currentName = newName;
+  addProcessDiscontiguous(newProgram: Program): boolean {
+    const added: boolean =
+      this.facadeMemory.addProcessDiscontigousMemory(newProgram);
+
+    // Actualiza el signal con la nueva memoria discontinua
+    this.memoryDiscontigous.set([...this.facadeMemory.getDiscontigousMemory()]);
+
+    return added;
   }
 
-  setInputRequired(isRequired:boolean): void{
-    this._inputRequired = isRequired;
+  removeProcessContiguous(idProcess: string): boolean {
+    const removed: boolean =
+      this.facadeMemory.removeProcessContigousMemory(idProcess);
+
+    // Actualiza el signal después de remover el proceso
+    this.memoryContigous.set([...this.facadeMemory.getContigousMemory()]);
+
+    return removed;
   }
 
-  setCurrentSizePartition(newSize: number):void{
-    this._currentSizePartition = newSize;
-  }
-  
-  setAddNewProgram(isAdding: boolean):void{
-    this._addNewProgram = isAdding;
+  removeProcessDiscontiguous(idUnitProgram: string): boolean {
+    const removed: boolean =
+      this.facadeMemory.removeProcessDiscontigousMemory(idUnitProgram);
+
+    // Actualiza el signal después de remover el proceso
+    this.memoryDiscontigous.set([...this.facadeMemory.getDiscontigousMemory()]);
+
+    return removed;
   }
 
-  addProgramToChoose(newProgram: Program): void{
-    this.Programs.push(newProgram);
+  fixedPartititions(): number[] {
+    return this.facadeMemory.getFixedPartitions();
   }
 
-  addProgram(newProgram: Program): void{
-    this._memoryContiguousManagament.addProgram(newProgram);
+  getNumberPagingArray(): number[] {
+    return this.facadeMemory.getNumberPagingArray();
   }
 
-  removeProcess(idProcess: string):void{
-    this._memoryContiguousManagament.removeProcess(idProcess);
+  addProgramToChoose(newProgramToChoose: Program): void{
+    const currentPrograms = this.programs(); 
+    this.programs.set([...currentPrograms,newProgramToChoose])
   }
 
-  get Programs(): Program[]{
-    return this._currentPrograms;
+  setInitialContigousMemory(): void{
+    this.memoryContigous.set(this.facadeMemory.getContigousMemory())
   }
 
-  get Processes(): Process[]{
-    return this._memoryContiguousManagament.Memory;
+  setInitialDiscontigousMemory(): void{
+    this.memoryDiscontigous.set(this.facadeMemory.getDiscontigousMemory())
   }
-
-  get Partitions(): number[]{
-    return [...this._currentFixedPartitions];
-  }
-
-  get currentPartition(): string{
-    return this._currentTypePartition;
-  }
-
-  get currentName(): string{
-    return this._currentName;
-  }
-
-  get inputRequired(): boolean{
-    return this._inputRequired;
-  }
-
-  get currentSizePartition(): number{
-    return this._currentSizePartition;
-  }
-
-  get addNewProgram(): boolean{
-    return this._addNewProgram;
-}
 }

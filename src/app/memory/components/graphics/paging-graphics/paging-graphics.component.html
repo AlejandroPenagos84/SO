@@ -1,0 +1,48 @@
+<div class="memory_container">
+  <div class="memory">
+    <p>Para eliminar haz click sobre el proceso para eliminarlo</p>
+    <ng-container *ngFor="let Page of Pages; let index = index">
+      <ng-container *ngIf="Page.id !== '0'; else emptyPage">
+        <div
+          class="process_container empty"
+          [ngStyle]="{
+            'height.px':
+              (getSinglePartition(Page, index) / 1048576) * sizePartition
+          }"
+        ></div>
+
+        <div class="process_container">
+          <p
+            class="p_base"
+            [ngStyle]="{
+              'height.px': (Page.memory / 1048576) * sizePartition,
+            }"
+          >
+            {{ Page.base }} - {{ Page.base.toString(16) }}
+          </p>
+          <p
+            class="p_name"
+            [ngStyle]="{
+              'height.px': (Page.memory / 1048576) * sizePartition,
+              'background-color': (Page.name === 'SO' ? 'green' : 
+              (Page.id === highlightedId && Page.name !== 'SO' ? '#ca6212' : 'brown')),
+              'cursor': (Page.id === highlightedId && Page.name !== 'SO' ? 'pointer' : 'default')
+            }"
+            (mouseenter)="onHover(Page.id)"
+            (mouseleave)="onLeave()"
+            (click)="onClick(Page.id)"
+          >
+            {{ Page.name }}
+          </p>
+        </div>
+      </ng-container>
+
+      <ng-template #emptyPage>
+        <div
+          class="process_container empty"
+          [ngStyle]="{ 'height.px': (Page.memory / 1048576) * sizePartition }"
+        ></div>
+      </ng-template>
+    </ng-container>
+  </div>
+</div>

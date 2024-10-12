@@ -1,0 +1,9 @@
+<div class="segmentation_page">
+    <form-input *ngIf="inputRequired else NoRequired" (partitionSizeChange)="handlePartitionSizeChange($event)"></form-input>
+    <ng-template #NoRequired>
+        <segmentation-table 
+        [currentName]="currentName"></segmentation-table>
+        <segmentation-graphics></segmentation-graphics>
+    </ng-template>
+</div>
+

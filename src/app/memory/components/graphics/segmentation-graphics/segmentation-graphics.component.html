@@ -1,0 +1,35 @@
+<div class="memory_container">
+  <div class="memory">
+    <p>Para eliminar haz click sobre el proceso para eliminarlo</p>
+    <ng-container *ngFor="let segment of Segments; let index = index">
+      <ng-container *ngIf="segment.id !== '0'; else emptySegment">
+        <div
+          class="process_container">
+          <p class="p_base"
+          [ngStyle]="{
+            'height.px': (segment.memory / 1048576) * sizePartition,
+          }">
+            {{ segment.base }} - {{ segment.base.toString(16) }}
+          </p>
+          <p class="p_name"
+          [ngStyle]="{
+            'height.px': (segment.memory / 1048576) * sizePartition,
+            'background-color': segment.id === highlightedId ? '#ca6212' : 'brown',
+            'cursor': segment.id === highlightedId ? 'pointer' : 'default'
+          }"
+          (mouseenter)="onHover(segment.id)"
+          (mouseleave)="onLeave()"
+          (click)="onClick(segment.id)">{{ segment.name }}</p>
+        </div>
+      </ng-container>
+
+      <ng-template #emptySegment>
+        <div 
+          class="process_container empty"
+          [ngStyle]="{'height.px': (segment.memory / 1048576) * sizePartition}"
+        ></div>
+      </ng-template>
+    </ng-container>
+    <div class="process_container SO">SO</div>
+  </div>
+</div>

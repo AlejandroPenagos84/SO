@@ -1,0 +1,14 @@
+.segmentation_page{
+    display: flex;
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+::ng-deep segmentation-table,::ng-deep form-input,::ng-deep segmentation-graphics{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

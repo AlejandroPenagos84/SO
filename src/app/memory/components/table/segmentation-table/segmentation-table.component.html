@@ -1,0 +1,35 @@
+<div class="table_container">
+    <h2>{{currentName | cleanAndCapitalize}}</h2>
+    <table *ngFor="let process of Memory">
+        <thead>
+            <tr>
+                <td colspan="6">{{process[0].name}}</td> <!-- Suponiendo que process es un objeto -->
+            </tr>
+            <tr>
+                <td colspan="2">Segmento</td>
+                <td colspan="2">Base</td>
+                <td rowspan="2">Limite</td>
+                <td rowspan="2">Permisos</td>
+            </tr>
+            <tr>
+                <td>Number</td>
+                <td>Binary</td>
+                <td>Decimal</td>
+                <td>Hexadecimal</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let segment of process; let index = index" 
+                [ngClass]="{'even': index % 2 === 0, 'odd': index % 2 !== 0}">
+                <td>{{index}}</td>
+                <td>{{index.toString(2)}}</td>
+                <td>{{segment.base}}</td>
+                <td>{{segment.base.toString(16)}}</td>
+                <td>{{segment.memory}}</td>
+                <td>{{segment.permits}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <free-fragments-table [elements]="freeFragmentTable"></free-fragments-table>
+</div>

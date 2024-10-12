@@ -8,13 +8,7 @@ import { MemoryService } from '@app/memory/memory.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  constructor(private navbarService: NavbarService, private memoryService: MemoryService){}
-
-  isAddingAProgram():void{
-    this.memoryService.setAddNewProgram(!this.memoryService.addNewProgram);
-    if(!this.state)
-      this.set_newState();
-  }
+  constructor(private navbarService: NavbarService){}
 
   get state(): boolean{
     return this.navbarService.state;

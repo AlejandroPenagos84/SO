@@ -1,0 +1,41 @@
+<div class="table_container">
+    <h2>{{currentName | cleanAndCapitalize}}</h2>
+    <table>
+        <thead>
+            <tr>
+                <td>Marco</td>
+                <td>PID</td>
+                <td>Nombre</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let frame of Memory; 
+            let index = index" [ngClass]="{'even': index % 2 === 0, 'odd': index % 2 !== 0}">
+                <td>{{frame.frame}}</td>
+                <td>{{frame.id}}</td>
+                <td>{{frame.name}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table *ngFor="let process of Processes">
+        <thead>
+            <tr>
+                <td colspan="6">{{process[0].name}}</td> <!-- Suponiendo que process es un objeto -->
+            </tr>
+            <tr>
+                <td>Pagina</td>
+                <td>Marco</td>
+                <td>Nombre</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let page of process; let index = index" 
+                [ngClass]="{'even': index % 2 === 0, 'odd': index % 2 !== 0}">
+                <td>{{index}}</td>
+                <td>{{page.frame}}</td>
+                <td>{{page.name}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

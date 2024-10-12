@@ -1,0 +1,14 @@
+.dynamic-page{
+    display: flex;
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+::ng-deep dynamic-table,::ng-deep form-input,::ng-deep dynamic-graphics{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
