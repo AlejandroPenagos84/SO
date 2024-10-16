@@ -63,6 +63,7 @@ export class Paging implements ProcessDiscontiguousStrategy {
             return page; // Retorna el objeto sin cambios
           })
         );
+
     const totalElements = pages.reduce(
       (total, subArray) => total + subArray.length,
       0
@@ -70,6 +71,7 @@ export class Paging implements ProcessDiscontiguousStrategy {
     const freePartitions = memory.filter(
       (element) => element.id === '0'
     ).length;
+    
     if (totalElements <= freePartitions) {
       for (let i: number = 0; i < pages.length; i++) {
         for (let j: number = 0; j < pages[i].length; j++) {

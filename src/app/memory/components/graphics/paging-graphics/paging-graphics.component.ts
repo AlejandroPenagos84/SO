@@ -39,7 +39,9 @@ export class PagingGraphicsComponent {
     this.highlightedId = null;
   }
 
-  onClick(idProcess: string){
-    this.memoryService.removeProcessDiscontiguous(idProcess);
+  onClick(idProcess: string, unitMemory: UnitMemory){
+    console.log(idProcess)
+    if(unitMemory.name !== 'SO')
+      this.memoryService.removeProcessDiscontiguous(idProcess);
   }
 }
